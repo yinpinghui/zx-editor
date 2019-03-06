@@ -133,19 +133,20 @@ class ZxEditor {
    * @param title
    * @param url
    */
-  addLink (url, title) {
+  addLink (url, title, others) {
     this.emit('debug', 'addLink() is start', {url, title})
     if (!url) return
     if (!title) {
       title = url
-    }
+	}
+	_others =  others || {}
     let avnode = {
       tag: 'a',
       attrs: {
-        href: url,
-        // 'data-url': url,
+        href: url,        
         target: '_blank',
-        contenteditable: false
+		contenteditable: false, 
+		..._others
       },
       child: [
         title,
@@ -267,6 +268,17 @@ class ZxEditor {
       return true
     }
     return false
+  }
+  setElementAttr(id, att){
+	  let ele = dom.query('#' + id, this.$content)
+	  if (ele){
+		for (let [k, v] of Object.entries(att)) {
+			ele[k] = v;
+		}		
+		broadcast.emit('change', 'content', this)
+		return true
+	  }
+	  return false
   }
 
   /**

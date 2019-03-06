@@ -423,3 +423,9 @@ Code and documentation copyright 2018. capricorncd. Code released under the MIT 
 
 
 
+##
+为整个lib增加几个方法，比如
+setLinkhref, 仿照setImageSrc
+
+
+
